@@ -93,6 +93,27 @@ if (isset($_GET['table']) && $_GET['table'] == 'students') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+if (isset($_GET['table']) && $_GET['table'] == 'hods') {
+
+    $sql = "SELECT * FROM hods ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    $rows = array();
+    $tempRow = array();
+    foreach ($res as $row) {
+
+        $operate = '<a href="edit-student.php?id=' . $row['id'] . '" title="Edit"><i class="fa fa-edit"></i></a>';
+    
+        $tempRow['id'] = $row['id'];
+        $tempRow['name'] = $row['name'];
+        $tempRow['branch'] = $row['branch'];
+        $tempRow['email'] = $row['email'];
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+        }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 if (isset($_GET['table']) && $_GET['table'] == 'posts') {
     $where = '';
     if (isset($_GET['community']) && $_GET['community'] != '') {

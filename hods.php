@@ -39,7 +39,7 @@ $_SESSION['timeout'] = $currentTime + $expired;
 <body>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <?php include('public/students-table.php'); ?>
+        <?php include('public/hods-table.php'); ?>
     </div><!-- /.content-wrapper -->
 </body>
 
