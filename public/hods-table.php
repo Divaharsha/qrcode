@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        Students /
+        HODs /
         <small><a href="home.php"><i class="fa fa-home"></i> Home</a></small>
 </h1>
     <ol class="breadcrumb">
-        <a class="btn btn-block btn-default" href="add-student.php"><i class="fa fa-plus-square"></i> Add New Student</a>
+        <a class="btn btn-block btn-default" href="add-hod.php"><i class="fa fa-plus-square"></i> Add New HOD</a>
     </ol>
     
 </section>

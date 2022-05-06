@@ -83,7 +83,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'students') {
         $tempRow['name'] = $row['name'];
         $tempRow['branch'] = $row['branch'];
         $tempRow['mobile'] = $row['mobile'];
-        $tempRow['profile'] = "<a data-lightbox='category' href='' data-caption='" . $row['name'] . "'><img src='". $row['profile'] . "' title='" . $row['name'] . "' height='50' /></a>";
+        $tempRow['profile'] = "<a data-lightbox='category' href='". $row['profile'] . "' data-caption='" . $row['name'] . "'><img src='". $row['profile'] . "' title='" . $row['name'] . "' height='50' /></a>";
         $tempRow['parent_mobile'] = $row['parent_mobile'];
         $tempRow['attendence_percentage'] = $row['attendence_percentage'];
         $tempRow['operate'] = $operate;
@@ -102,7 +102,8 @@ if (isset($_GET['table']) && $_GET['table'] == 'hods') {
     $tempRow = array();
     foreach ($res as $row) {
 
-        $operate = '<a href="edit-student.php?id=' . $row['id'] . '" title="Edit"><i class="fa fa-edit"></i></a>';
+        $operate = '<a href="delete-hod.php?id=' . $row['id'] . '" title="Delete"><i class="fa fa-trash"></i></a>';
+    
     
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
