@@ -180,6 +180,13 @@ $res_logo = $db->getResult();
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="checkin.php">
+                        <i class="fa fa-bullseye"></i>
+                        <span>Check In</span>
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </a>
+                </li>
                 
             </ul>
             </section>

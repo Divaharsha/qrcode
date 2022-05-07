@@ -68,9 +68,17 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
 }
 if (isset($_GET['table']) && $_GET['table'] == 'students') {
 
+    $sql = "SELECT COUNT(`id`) as total FROM `students` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
     $sql = "SELECT * FROM students ";
     $db->sql($sql);
     $res = $db->getResult();
+    $bulkData = array();
+    $bulkData['total'] = $total;
     $rows = array();
     $tempRow = array();
     foreach ($res as $row) {
@@ -95,9 +103,18 @@ if (isset($_GET['table']) && $_GET['table'] == 'students') {
 }
 if (isset($_GET['table']) && $_GET['table'] == 'hods') {
 
+    $sql = "SELECT COUNT(`id`) as total FROM `hods` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+
     $sql = "SELECT * FROM hods ";
     $db->sql($sql);
     $res = $db->getResult();
+    $bulkData = array();
+    $bulkData['total'] = $total;
     $rows = array();
     $tempRow = array();
     foreach ($res as $row) {
@@ -112,6 +129,34 @@ if (isset($_GET['table']) && $_GET['table'] == 'hods') {
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
         }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
+
+    $sql = "SELECT COUNT(`id`) as total FROM `hods` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+
+    $sql = "SELECT *,entries.id AS id FROM entries,students WHERE students.id = entries.student_id ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    $rows = array();
+    $tempRow = array();
+    foreach ($res as $row) {
+
+        $tempRow['id'] = $row['id'];
+        $tempRow['name'] = $row['name'];
+        $tempRow['late'] = $row['late'];
+        $tempRow['description'] = $row['description'];
+        $tempRow['time'] = $row['date_created'];
+        $rows[] = $tempRow;
+    }
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }

@@ -1,11 +1,8 @@
 <section class="content-header">
     <h1>
-        Students /
+        CheckIn /
         <small><a href="home.php"><i class="fa fa-home"></i> Home</a></small>
 </h1>
-    <ol class="breadcrumb">
-        <a class="btn btn-block btn-default" href="add-student.php"><i class="fa fa-plus-square"></i> Add New Student</a>
-    </ol>
     
 </section>
     <!-- Main content -->
@@ -17,7 +14,7 @@
                 <div class="box">
                     <!-- /.box-header -->
                     <div class="box-body table-responsive">
-                        <table id='users_table' class="table table-hover" data-toggle="table" data-url="api-firebase/get-bootstrap-table-data.php?table=students" data-page-list="[5, 10, 20, 50, 100, 200]" data-side-pagination="server" data-pagination="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-export-types='["txt","excel"]' data-export-options='{
+                        <table id='users_table' class="table table-hover" data-toggle="table" data-url="api-firebase/get-bootstrap-table-data.php?table=checkin" data-page-list="[5, 10, 20, 50, 100, 200]" data-side-pagination="server" data-pagination="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-export-types='["txt","excel"]' data-export-options='{
                             "fileName": "students-list-<?= date('d-m-Y') ?>",
                             "ignoreColumn": ["operate"] 
                         }'>
@@ -25,13 +22,10 @@
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
                                     <th data-field="name">Name</th>
-                                    <th data-field="branch">Branch</th>
-                                    <th data-field="profile">Profile</th>
-                                    <th data-field="mobile" >Mobile</th>
-                                    <th data-field="parent_mobile">Parent Mobile</th>
-                                    <th data-field="attendence_percentage">Attendence Percentage</th>
-                                    <th data-field="qrcode">Qrcode</th>
-                                    <th data-field="operate" data-events="actionEvents">Action</th>
+                                    <th data-field="late">Late</th>
+                                    <th data-field="description">Description</th>
+                                    <th data-field="time">Time</th>
+                                   
                                 </tr>
                             </thead>
                         </table>
