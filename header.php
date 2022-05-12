@@ -129,15 +129,15 @@ $res_logo = $db->getResult();
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="images/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <span class="hidden-xs">Attendence</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="images/avatar.png" class="img-circle" alt="User Image">
                                         <p>
-                                            Admin
-                                            <small>admin@gmail.com</small>
+                                            Attendence
+                               
                                         </p>
                                     </li>
                                     <li class="user-footer">
@@ -184,6 +184,8 @@ $res_logo = $db->getResult();
                 </li>
                 <?php } ?> 
 
+                <?php
+                if ($_SESSION['role'] == 'hod') {?>                
                 <li class="treeview">
                     <a href="checkin.php">
                         <i class="fa fa-bullseye"></i>
@@ -191,6 +193,11 @@ $res_logo = $db->getResult();
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                 </li>
+                <?php } ?> 
+
+                
+
+
                 
             </ul>
             </section>

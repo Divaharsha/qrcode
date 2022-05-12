@@ -24,6 +24,7 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
+                                    <th data-field="roll_no">Roll No</th>
                                     <th data-field="name">Name</th>
                                     <th data-field="branch">Branch</th>
                                     <th data-field="profile">Profile</th>

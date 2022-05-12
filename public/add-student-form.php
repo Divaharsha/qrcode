@@ -21,6 +21,7 @@ if (isset($_POST['btnAdd'])) {
         $attendence_percentage = $db->escapeString($fn->xss_clean($_POST['attendence_percentage']));
         $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
         $parent_mobile = $db->escapeString($fn->xss_clean($_POST['parent_mobile']));
+        $roll_no = $db->escapeString($fn->xss_clean($_POST['roll_no']));
 
         $image_error = $db->escapeString($_FILES['profile']['error']);
         if (empty($name)) {
@@ -39,11 +40,14 @@ if (isset($_POST['btnAdd'])) {
         if (empty($parent_mobile)) {
             $error['parent_mobile'] = " <span class='label label-danger'>Required!</span>";
         }
+        if (empty($roll_no)) {
+            $error['roll_no'] = " <span class='label label-danger'>Required!</span>";
+        }
         if ($image_error > 0) {
             $error['profile'] = " <span class='label label-danger'>Required!</span>";
 
         }
-        if (!empty($name) && !empty($branch) && !empty($attendence_percentage) && !empty($mobile) && !empty($parent_mobile))
+        if (!empty($name) && !empty($branch) && !empty($attendence_percentage) && !empty($mobile) && !empty($parent_mobile) && !empty($roll_no))
         {
             error_reporting(E_ERROR | E_PARSE);
             $extension = end(explode(".", $_FILES["profile"]["name"]));
@@ -58,7 +62,7 @@ if (isset($_POST['btnAdd'])) {
             $upload_image = 'upload/profile/' . $menu_image;
 
 
-            $sql = "INSERT INTO students (name,branch,attendence_percentage,mobile,parent_mobile,profile) VALUES('$name','$branch','$attendence_percentage','$mobile','$parent_mobile','$upload_image')";
+            $sql = "INSERT INTO students (name,roll_no,branch,attendence_percentage,mobile,parent_mobile,profile) VALUES('$name','$roll_no','$branch','$attendence_percentage','$mobile','$parent_mobile','$upload_image')";
             $db->sql($sql);
             $student_result = $db->getResult();
             if (!empty($student_result)) {
@@ -69,7 +73,7 @@ if (isset($_POST['btnAdd'])) {
             if ($student_result == 1) {
                 $error['add_menu'] = "<section class='content-header'>
                                                 <span class='label label-success'>Student Added Successfully</span>
-                                                <h4><small><a  href='students.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Products</a></small></h4>
+                                                <h4><small><a  href='students.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Students</a></small></h4>
                                                  </section>";
             } else {
                 $error['add_menu'] = " <span class='label label-danger'>Failed</span>";
@@ -134,6 +138,10 @@ if (isset($_POST['btnAdd'])) {
                                 <div class='col-md-4'>
                                     <label for="exampleInputEmail1">Parent Mobile No.</label> <i class="text-danger asterik">*</i><?php echo isset($error['parent_mobile']) ? $error['parent_mobile'] : ''; ?>
                                     <input type="number" class="form-control" name="parent_mobile" required>
+                                </div>
+                                <div class='col-md-4'>
+                                    <label for="exampleInputEmail1">Roll No.</label> <i class="text-danger asterik">*</i><?php echo isset($error['roll_no']) ? $error['roll_no'] : ''; ?>
+                                    <input type="text" class="form-control" name="roll_no" required>
                                 </div>
 
                             </div>

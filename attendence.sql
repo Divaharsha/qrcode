@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2022 at 07:13 PM
+-- Generation Time: May 12, 2022 at 06:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -31,6 +31,8 @@ CREATE TABLE `entries` (
   `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `late` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `attendence` text NOT NULL,
   `last_updated` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -39,9 +41,66 @@ CREATE TABLE `entries` (
 -- Dumping data for table `entries`
 --
 
-INSERT INTO `entries` (`id`, `student_id`, `late`, `last_updated`, `date_created`) VALUES
-(1, 1, 'true', NULL, '2022-05-03 08:04:24'),
-(2, 2, 'true', NULL, '2022-05-03 17:01:34');
+INSERT INTO `entries` (`id`, `student_id`, `late`, `description`, `attendence`, `last_updated`, `date_created`) VALUES
+(1, 1, 'true', NULL, '', NULL, '2022-05-03 08:04:24'),
+(2, 2, 'true', NULL, '', NULL, '2022-05-03 17:01:34'),
+(3, 1, 'true', NULL, '', NULL, '2022-05-06 16:32:18'),
+(4, 1, 'true', NULL, '', NULL, '2022-05-06 16:42:50'),
+(5, 1, 'true', NULL, '', NULL, '2022-05-07 06:06:22'),
+(6, 1, 'true', NULL, '45', '2022-05-12 15:43:18', '2022-05-07 06:20:37'),
+(7, 1, 'true', NULL, '', NULL, '2022-05-07 11:12:31'),
+(8, 1, 'true', NULL, '', NULL, '2022-05-07 11:13:23'),
+(9, 1, 'true', NULL, '', NULL, '2022-05-07 11:13:31'),
+(10, 1, 'true', NULL, '', NULL, '2022-05-07 11:13:52'),
+(11, 1, 'true', NULL, '', NULL, '2022-05-07 11:13:53'),
+(12, 1, 'true', NULL, '', NULL, '2022-05-07 11:13:55'),
+(13, 1, 'true', NULL, '', NULL, '2022-05-07 11:14:05'),
+(14, 1, 'true', 'NOT WEAR SHOE', '', NULL, '2022-05-07 11:20:06'),
+(15, 1, 'true', 'not wear shoes', '', NULL, '2022-05-07 13:15:20'),
+(16, 1, 'true', 'not wear shoes', '', NULL, '2022-05-07 13:15:22'),
+(17, 1, 'true', 'NOT WEAR SHOE', '', NULL, '2022-05-07 13:15:33'),
+(18, 1, 'true', 'NOT WEAR SHOE', '', NULL, '2022-05-07 13:25:20'),
+(19, 1, 'true', 'NOT WEAR SHOE', '', NULL, '2022-05-07 13:28:18'),
+(20, 1, 'true', 'NOT WEAR SHOE', '', NULL, '2022-05-07 13:30:13'),
+(21, 1, 'true', 'NOT WEAR SHOE', '', NULL, '2022-05-07 13:30:22'),
+(22, 1, 'true', 'not wear shoes', '', NULL, '2022-05-07 13:30:37'),
+(23, 1, 'true', 'not wear shoe', '', NULL, '2022-05-07 13:43:10'),
+(24, 1, 'true', 'not wear shoe', '', NULL, '2022-05-07 13:44:09'),
+(25, 1, 'true', 'NOT WEAR SHOE', '24', NULL, '2022-05-12 15:54:46'),
+(26, 1, 'true', 'NOT WEAR SHOE', '24', NULL, '2022-05-12 15:55:12'),
+(27, 1, 'true', 'NOT WEAR SHOE', '24', NULL, '2022-05-12 15:55:20'),
+(28, 1, 'true', 'NOT WEAR SHOE', '24', NULL, '2022-05-12 15:55:27'),
+(29, 1, 'true', 'NOT WEAR SHOE', '23', NULL, '2022-05-12 15:55:36'),
+(30, 1, 'true', 'NOT WEAR SHOE', '23', NULL, '2022-05-12 16:43:37'),
+(31, 1, 'true', 'NOT WEAR SHOE', '23', NULL, '2022-05-12 16:44:03'),
+(32, 1, 'true', 'NOT WEAR SHOE', '23', NULL, '2022-05-12 16:44:05'),
+(33, 1, 'true', 'NOT WEAR SHOE', '22', NULL, '2022-05-12 16:44:06'),
+(34, 1, 'true', 'NOT WEAR SHOE', '22', NULL, '2022-05-12 16:44:11'),
+(35, 1, 'true', 'NOT WEAR SHOE', '22', NULL, '2022-05-12 16:44:13'),
+(36, 1, 'true', 'NOT WEAR SHOE', '22', NULL, '2022-05-12 16:44:15'),
+(37, 1, 'true', 'NOT WEAR SHOE', '21', NULL, '2022-05-12 16:44:17'),
+(38, 1, 'true', 'NOT WEAR SHOE', '21', NULL, '2022-05-12 16:48:28'),
+(39, 1, 'true', 'not wear shoes', '21', NULL, '2022-05-12 16:53:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fine_late`
+--
+
+CREATE TABLE `fine_late` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `date_created` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fine_late`
+--
+
+INSERT INTO `fine_late` (`id`, `student_id`, `date_created`) VALUES
+(33, 1, '2022-05-12 16:48:28'),
+(34, 1, '2022-05-12 16:53:00');
 
 -- --------------------------------------------------------
 
@@ -54,9 +113,19 @@ CREATE TABLE `hods` (
   `name` text DEFAULT NULL,
   `branch` text DEFAULT NULL,
   `email` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
   `last_updated` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hods`
+--
+
+INSERT INTO `hods` (`id`, `name`, `branch`, `email`, `password`, `last_updated`, `date_created`) VALUES
+(2, 'Aanto', 'CSE', 'aanto@gmail.com', '123456789', '2022-05-12 16:04:04', '2022-05-04 11:53:50'),
+(3, 'prasad', 'ECE', 'p@gmail.com', NULL, '2022-05-07 13:30:19', '2022-05-06 16:47:00'),
+(4, 'prasad', 'MECH', 'jp@gmail.com', '1234567890', NULL, '2022-05-12 08:07:59');
 
 -- --------------------------------------------------------
 
@@ -103,6 +172,7 @@ INSERT INTO `settings` (`id`, `variable`, `value`) VALUES
 CREATE TABLE `students` (
   `id` int(11) NOT NULL,
   `name` text DEFAULT NULL,
+  `roll_no` text DEFAULT NULL,
   `branch` text DEFAULT NULL,
   `profile` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
@@ -116,9 +186,13 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `name`, `branch`, `profile`, `mobile`, `parent_mobile`, `attendence_percentage`, `last_updated`, `date_created`) VALUES
-(1, 'Prasad', 'CSE', 'https://upload.wikimedia.org/wikipedia/commons/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg', '8778624681', '9876543210', '45', NULL, '2022-05-02 05:42:38'),
-(2, 'Suriya', 'CSE', 'upload/profile/3473-2022-05-03.jpg', '87675655566', '76787878787', '55', NULL, '2022-05-03 05:45:59');
+INSERT INTO `students` (`id`, `name`, `roll_no`, `branch`, `profile`, `mobile`, `parent_mobile`, `attendence_percentage`, `last_updated`, `date_created`) VALUES
+(1, 'Prasad', '83749343', 'MECH', 'upload/profile/1651855342.9769.jpg', '8778624681', '9080295572', '21', NULL, '2022-05-02 05:42:38'),
+(2, 'Suriya', NULL, 'CSE', 'upload/profile/3473-2022-05-03.jpg', '87675655566', '76787878787', '55', NULL, '2022-05-03 05:45:59'),
+(3, 'Kumar', NULL, 'CSE', 'upload/profile/8568-2022-05-06.png', '9876543210', '9866373838', '45', NULL, '2022-05-06 16:28:54'),
+(4, 'vudgj', NULL, 'MECH', 'upload/profile/3874-2022-05-06.', '9889787888', '8887878787', '56', NULL, '2022-05-06 16:44:28'),
+(5, 'kumar', NULL, 'CIVIL', 'upload/profile/4300-2022-05-06.jpg', '987546789', '987667888', '45', NULL, '2022-05-06 16:46:41'),
+(6, 'Prasad', '810718106005', 'ECE', 'upload/profile/2659-2022-05-12.png', '98765343737', '98765343737', '65', NULL, '2022-05-12 15:30:23');
 
 --
 -- Indexes for dumped tables
@@ -128,6 +202,12 @@ INSERT INTO `students` (`id`, `name`, `branch`, `profile`, `mobile`, `parent_mob
 -- Indexes for table `entries`
 --
 ALTER TABLE `entries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fine_late`
+--
+ALTER TABLE `fine_late`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -156,13 +236,19 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `entries`
 --
 ALTER TABLE `entries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `fine_late`
+--
+ALTER TABLE `fine_late`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `hods`
 --
 ALTER TABLE `hods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -174,7 +260,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

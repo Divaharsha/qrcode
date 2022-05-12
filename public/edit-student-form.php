@@ -18,6 +18,7 @@ if (isset($_POST['btnUpdate'])){
     $name = $db->escapeString($fn->xss_clean($_POST['name']));
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
     $parent_mobile = $db->escapeString($fn->xss_clean($_POST['parent_mobile']));
+    $roll_no = $db->escapeString($fn->xss_clean($_POST['roll_no']));
     $branch = $db->escapeString($fn->xss_clean($_POST['branch']));
     $attendence_percentage = $db->escapeString($fn->xss_clean($_POST['attendence_percentage']));
 
@@ -45,7 +46,7 @@ if (isset($_POST['btnUpdate'])){
         $sql = "UPDATE students SET `profile`='" . $upload_image . "' WHERE `id`=" . $ID;
         $db->sql($sql);
     }
-    $sql = "UPDATE students SET name='$name',mobile='$mobile',parent_mobile='$parent_mobile',branch='$branch',attendence_percentage='$attendence_percentage' WHERE id=$ID";
+    $sql = "UPDATE students SET name='$name',mobile='$mobile',parent_mobile='$parent_mobile',branch='$branch',attendence_percentage='$attendence_percentage',roll_no='$roll_no' WHERE id=$ID";
         if ($db->sql($sql)) {
             $error['add_menu'] = "<section class='content-header'>
             <span class='label label-success'>Student details Updated Successfully</span>
@@ -125,6 +126,10 @@ foreach ($res as $row)
                                 <div class='col-md-4'>
                                     <label for="exampleInputEmail1">Attendence Percentage</label> <i class="text-danger asterik">*</i><?php echo isset($error['attendence_percentage']) ? $error['attendence_percentage'] : ''; ?>
                                     <input type="number" class="form-control" name="attendence_percentage" value="<?php echo $data['attendence_percentage']?>" required>
+                                </div>
+                                <div class='col-md-4'>
+                                    <label for="exampleInputEmail1">Roll No.</label> <i class="text-danger asterik">*</i><?php echo isset($error['roll_no']) ? $error['roll_no'] : ''; ?>
+                                    <input type="text" class="form-control" name="roll_no" value="<?php echo $data['roll_no']?>" required>
                                 </div>
                             </div>
 

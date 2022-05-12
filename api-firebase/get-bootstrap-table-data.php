@@ -105,6 +105,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'students') {
         
         
         $tempRow['id'] = $row['id'];
+        $tempRow['roll_no'] = $row['roll_no'];
         $tempRow['name'] = $row['name'];
         $tempRow['branch'] = $row['branch'];
         $tempRow['mobile'] = $row['mobile'];
@@ -152,18 +153,17 @@ if (isset($_GET['table']) && $_GET['table'] == 'hods') {
 if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
     $where = '';
 
-    if (isset($_GET['report_date']) && $_GET['report_date'] != '') {
-        $date = $db->escapeString($_GET['report_date']);
-        $where .= "AND DATE(entries.date_created) = DATE('$date')";
-    }
+    $date = $db->escapeString($_GET['report_date']);
+    $where .= "AND DATE(entries.date_created) = DATE('$date')";
+    
 
-    $sql = "SELECT COUNT(`id`) as total FROM `hods` ";
+    $sql = "SELECT COUNT(`id`) as total FROM entries WHERE late = 'true' AND DATE(date_created) = DATE('$date')";
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT *,entries.id AS id FROM entries,students WHERE students.id = entries.student_id "  . $where;
+    $sql = "SELECT *,entries.id AS id,entries.attendence AS attendence FROM entries,students WHERE students.id = entries.student_id AND entries.late = 'true' "  . $where;
     $db->sql($sql);
     $res = $db->getResult();
     $bulkData = array();
@@ -173,6 +173,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
     foreach ($res as $row) {
 
         $tempRow['id'] = $row['id'];
+        $tempRow['roll_no'] = $row['roll_no'];
         $tempRow['name'] = $row['name'];
         $tempRow['late'] = $row['late'];
         $tempRow['description'] = $row['description'];

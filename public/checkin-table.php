@@ -28,8 +28,9 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
+                                    <th data-field="roll_no">Roll No</th>
                                     <th data-field="name">Name</th>
-                                    <th data-field="late">Late</th>
+                                    <!-- <th data-field="late">Late</th> -->
                                     <th data-field="description">Description</th>
                                     <th data-field="time">Time</th>
                                     <th data-field="attendence">Attendence</th>

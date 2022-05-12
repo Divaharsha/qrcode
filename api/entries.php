@@ -41,8 +41,6 @@ if ($num == 1) {
     } else {
         $late = 'true';
     }
-    $sql = "INSERT INTO entries(`student_id`,`late`,`description`)VALUES('$student_id','$late','$description')";
-    $db->sql($sql);
     if($late == 'true'){
         $sql = "INSERT INTO fine_late(`student_id`)VALUES('$student_id')";
         $db->sql($sql);
@@ -67,7 +65,7 @@ if ($num == 1) {
 
     }
     if($num == 4){
-        $attendence_percentage = $res_stu[0]['attendence_percentage'] - 5;
+        $attendence_percentage = $res_stu[0]['attendence_percentage'] - 1;
 
         $sql = "UPDATE students SET attendence_percentage='$attendence_percentage' WHERE id = $student_id ";
         $db->sql($sql);
@@ -77,10 +75,35 @@ if ($num == 1) {
 
     
     }
+    $sql = "SELECT * FROM students WHERE id = '$student_id'";
+    $db->sql($sql);
+    $res_stu = $db->getResult();   
+    $stu_name = $res_stu[0]['name'];
+    $attendence_percentage = $res_stu[0]['attendence_percentage'];
+    if($num == 4){
+        $student_msg = 'Dear Student,you are late to campus / not in proper Dress code. So, 1% of attendence deducated  - Aditiya Educational Institutions';
+
+
+    }
+    else{
+        $sql = "SELECT * FROM fine_late WHERE student_id = '$student_id'";
+        $db->sql($sql);
+        $fine_res = $db->getResult(); 
+        $fine_res_num = $db->numRows($fine_res);  
+        $chances = 4 - $fine_res_num;
+        $student_msg = 'Dear Student,you are late to campus / not in proper Dress code. So You are having still '.$chances.' for more chances for deducation of 1% of attendence  - Aditiya Educational Institutions';
+
+    }
+
+    $sql = "INSERT INTO entries(`student_id`,`late`,`description`,`attendence`)VALUES('$student_id','$late','$description','$attendence_percentage')";
+    $db->sql($sql);
     $response['success'] = true;
     $response['message'] = "Checked In Successfully";
     $response['parent_mobile'] = $res_stu[0]['parent_mobile'];
+    $response['parent_message'] = 'Dear Parent,'.$stu_name.' arrived late to campus / not in proper Dress code. Please advice your ward to obey the collge rules - Aditiya Educational Institutions';
+    $response['student_message'] = $student_msg;
     $response['staff_email'] = $email;
+    $response['late'] = $late;
     print_r(json_encode($response));
 
 }
