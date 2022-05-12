@@ -173,6 +173,8 @@ $res_logo = $db->getResult();
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                 </li>
+                <?php
+                if ($_SESSION['role'] == 'admin') {?>                
                 <li class="treeview">
                     <a href="hods.php">
                         <i class="fa fa-bullseye"></i>
@@ -180,10 +182,12 @@ $res_logo = $db->getResult();
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                 </li>
+                <?php } ?> 
+
                 <li class="treeview">
                     <a href="checkin.php">
                         <i class="fa fa-bullseye"></i>
-                        <span>Check In</span>
+                        <span>Reports</span>
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                 </li>

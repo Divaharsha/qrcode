@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        CheckIn /
+        Reports /
         <small><a href="home.php"><i class="fa fa-home"></i> Home</a></small>
 </h1>
     
@@ -12,6 +12,13 @@
             <!-- Left col -->
             <div class="col-xs-12">
                 <div class="box">
+                <div class="box-header">
+                    <div class="form-group col-md-3">
+                        <h4 class="box-title">Choose Date</h4>
+                        <input type="date" class="form-control" id="report_date" name="report_date">
+                    </div>
+                </div>
+
                     <!-- /.box-header -->
                     <div class="box-body table-responsive">
                         <table id='users_table' class="table table-hover" data-toggle="table" data-url="api-firebase/get-bootstrap-table-data.php?table=checkin" data-page-list="[5, 10, 20, 50, 100, 200]" data-side-pagination="server" data-pagination="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-export-types='["txt","excel"]' data-export-options='{
@@ -25,6 +32,7 @@
                                     <th data-field="late">Late</th>
                                     <th data-field="description">Description</th>
                                     <th data-field="time">Time</th>
+                                    <th data-field="attendence">Attendence</th>
                                    
                                 </tr>
                             </thead>
@@ -40,18 +48,12 @@
     </section>
 
 <script>
-    $('#seller_id').on('change', function() {
-        $('#products_table').bootstrapTable('refresh');
-    });
-    $('#community').on('change', function() {
+    $('#report_date').on('change', function() {
         $('#users_table').bootstrapTable('refresh');
     });
-
     function queryParams(p) {
         return {
-            "category_id": $('#category_id').val(),
-            "seller_id": $('#seller_id').val(),
-            "community": $('#community').val(),
+            "report_date": $('#report_date').val(),
             limit: p.limit,
             sort: p.sort,
             order: p.order,
@@ -61,11 +63,10 @@
     }
 </script>
 <script>
-    $('#category_id').on('change', function() {
-        id = $('#category_id').val();
-        $('#products_table').bootstrapTable('refresh');
-    });
+    document.getElementById('report_date').valueAsDate = new Date();
 
+</script>
+<script>
     window.actionEvents = {
         'click .set-product-deactive': function(e, value, rows, index) {
             var p_id = $(this).data("id");

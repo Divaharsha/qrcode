@@ -46,12 +46,21 @@ include "header.php";
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3><?php     $sql = "SELECT COUNT(`id`) as total FROM `students` ";
-                        $db->sql($sql);
-                        $res = $db->getResult();
-                        foreach ($res as $row)
-                            $total = $row['total'];
-                            echo $total;
+                            <h3><?php     
+                            if($_SESSION['role'] == 'hod'){
+                                $sql = "SELECT COUNT(`id`) as total FROM `students` WHERE `branch` = '".$_SESSION['branch']."'";
+
+                            }
+                            else{
+                                
+                            $sql = "SELECT COUNT(`id`) as total FROM `students` ";
+
+                            }
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            foreach ($res as $row)
+                                $total = $row['total'];
+                                echo $total;
                             ?></h3>
                             <p>Students</p>
                         </div>
@@ -59,6 +68,8 @@ include "header.php";
                         <a href="students.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                <?php
+                if ($_SESSION['role'] == 'admin') {?>   
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
@@ -75,6 +86,7 @@ include "header.php";
                         <a href="hods.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                <?php }?>
             </div>
         </section>
     </div>

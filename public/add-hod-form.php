@@ -19,6 +19,7 @@ if (isset($_POST['btnAdd'])) {
         $name = $db->escapeString($fn->xss_clean($_POST['name']));
         $branch = $db->escapeString($fn->xss_clean($_POST['branch']));
         $email = $db->escapeString($fn->xss_clean($_POST['email']));
+        $password = $db->escapeString($fn->xss_clean($_POST['password']));
 
         if (empty($name)) {
             $error['name'] = " <span class='label label-danger'>Required!</span>";
@@ -26,10 +27,13 @@ if (isset($_POST['btnAdd'])) {
         if (empty($branch)) {
             $error['branch'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($branch)) {
+        if (empty($email)) {
             $error['email'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (!empty($name) && !empty($branch) && !empty($email))
+        if (empty($password)) {
+            $error['password'] = " <span class='label label-danger'>Required!</span>";
+        }
+        if (!empty($name) && !empty($branch) && !empty($email)  && !empty($password))
         {
             $sql = "SELECT * FROM hods WHERE branch = '$branch'";
             $db->sql($sql);
@@ -40,7 +44,7 @@ if (isset($_POST['btnAdd'])) {
 
             }
             else{
-                $sql = "INSERT INTO hods (name,branch,email) VALUES('$name','$branch','$email')";
+                $sql = "INSERT INTO hods (name,branch,email,password) VALUES('$name','$branch','$email','$password')";
                 $db->sql($sql);
                 $staff_result = $db->getResult();
                 if (!empty($staff_result)) {
@@ -111,6 +115,10 @@ if (isset($_POST['btnAdd'])) {
                                 <div class='col-md-4'>
                                     <label for="exampleInputEmail1">Email</label> <i class="text-danger asterik">*</i><?php echo isset($error['email']) ? $error['email'] : ''; ?>
                                     <input type="email" class="form-control" name="email" required>
+                                </div>
+                                <div class='col-md-4'>
+                                    <label for="exampleInputEmail1">Password</label> <i class="text-danger asterik">*</i><?php echo isset($error['password']) ? $error['password'] : ''; ?>
+                                    <input type="password" class="form-control" name="password" required>
                                 </div>
 
                             </div>

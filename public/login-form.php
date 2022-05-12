@@ -32,16 +32,36 @@ if (isset($_POST['btnLogin'])) {
     // if email and password is not empty, check in database
     if (!empty($email) && !empty($password)) {
         if($email == 'admin' && $password == 'admin123'){
-            $_SESSION['id'] = '1';
+            $_SESSION['id'] = '0';
             $_SESSION['role'] ='admin';
-            $_SESSION['username'] = 'bigwigg';
+            $_SESSION['username'] = 'admin';
             $_SESSION['email'] = 'admin@gmail.com';
             $_SESSION['timeout'] = $currentTime + $expired;
             header("location: home.php");
             
         }
         else{
-            $error['failed'] = "<span class='label label-danger'>Invalid Email or Password!</span>";
+                        // get data from user table
+            $sql_query = "SELECT * FROM hods WHERE email = '" . $email . "' AND password = '" . $password . "'";
+
+            $db->sql($sql_query);
+            /* store result */
+            $res = $db->getResult();
+            $num = $db->numRows($res);
+            // Close statement object
+            if ($num == 1) {
+                $_SESSION['id'] = $res[0]['id'];
+                $_SESSION['role'] = 'hod';
+                $_SESSION['username'] = 'hod';
+                $_SESSION['branch'] = $res[0]['branch'];
+                $_SESSION['email'] = $email;
+                $_SESSION['timeout'] = $currentTime + $expired;
+                header("location: home.php");
+
+            } else{
+                $error['failed'] = "<span class='label label-danger'>Invalid Email or Password!</span>";
+            }
+
         }
     }
 }
@@ -61,7 +81,7 @@ $res_logo = $db->getResult();
         </div>
         <div class="box box-info col-md-12">
             <div class="box-header with-border">
-                <h3 class="box-title">Admin Login</h3>
+                <h3 class="box-title">Login</h3>
                 <center>
                     <div class="msg"><?php echo isset($error['failed']) ? $error['failed'] : ''; ?></div>
                 </center>

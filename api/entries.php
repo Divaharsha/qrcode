@@ -27,6 +27,7 @@ if (empty($_POST['description'])) {
     print_r(json_encode($response));
     return false;
 }
+
 $student_id = $db->escapeString($_POST['student_id']);
 $description = $db->escapeString($_POST['description']);
 $sql = "SELECT * FROM students WHERE id = '$student_id'";

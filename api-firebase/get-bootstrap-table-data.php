@@ -67,14 +67,31 @@ if (isset($_GET['table']) && $_GET['table'] == 'users') {
     print_r(json_encode($bulkData));
 }
 if (isset($_GET['table']) && $_GET['table'] == 'students') {
+    if($_SESSION['role'] == 'hod'){
+        $sql = "SELECT COUNT(`id`) as total FROM `students` WHERE `branch` = '".$_SESSION['branch']."'";
 
+    }
+    else{
+        
     $sql = "SELECT COUNT(`id`) as total FROM `students` ";
+
+    }
+
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
+    if($_SESSION['role'] == 'hod'){
+        $sql = "SELECT * FROM `students` WHERE `branch` = '".$_SESSION['branch']."'";
+
+    }
+    else{
+        
     $sql = "SELECT * FROM students ";
+
+    }
+
     $db->sql($sql);
     $res = $db->getResult();
     $bulkData = array();
@@ -133,6 +150,12 @@ if (isset($_GET['table']) && $_GET['table'] == 'hods') {
     print_r(json_encode($bulkData));
 }
 if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
+    $where = '';
+
+    if (isset($_GET['report_date']) && $_GET['report_date'] != '') {
+        $date = $db->escapeString($_GET['report_date']);
+        $where .= "AND DATE(entries.date_created) = DATE('$date')";
+    }
 
     $sql = "SELECT COUNT(`id`) as total FROM `hods` ";
     $db->sql($sql);
@@ -140,8 +163,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
     foreach ($res as $row)
         $total = $row['total'];
 
-
-    $sql = "SELECT *,entries.id AS id FROM entries,students WHERE students.id = entries.student_id ";
+    $sql = "SELECT *,entries.id AS id FROM entries,students WHERE students.id = entries.student_id "  . $where;
     $db->sql($sql);
     $res = $db->getResult();
     $bulkData = array();
@@ -155,6 +177,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
         $tempRow['late'] = $row['late'];
         $tempRow['description'] = $row['description'];
         $tempRow['time'] = $row['date_created'];
+        $tempRow['attendence'] = $row['attendence'];
         $rows[] = $tempRow;
     }
     $bulkData['rows'] = $rows;
