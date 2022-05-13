@@ -184,8 +184,6 @@ $res_logo = $db->getResult();
                 </li>
                 <?php } ?> 
 
-                <?php
-                if ($_SESSION['role'] == 'hod') {?>                
                 <li class="treeview">
                     <a href="checkin.php">
                         <i class="fa fa-bullseye"></i>
@@ -193,7 +191,6 @@ $res_logo = $db->getResult();
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                 </li>
-                <?php } ?> 
 
                 
 

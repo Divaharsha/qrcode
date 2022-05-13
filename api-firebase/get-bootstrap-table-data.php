@@ -155,15 +155,38 @@ if (isset($_GET['table']) && $_GET['table'] == 'checkin') {
 
     $date = $db->escapeString($_GET['report_date']);
     $where .= "AND DATE(entries.date_created) = DATE('$date')";
+
+    if($_SESSION['role'] == 'hod'){
+        $sql = "SELECT * FROM entries e,students s WHERE e.late = 'true' AND DATE(e.date_created) = DATE('$date') AND e.student_id = s.id AND s.branch = '".$_SESSION['branch']."'";
+
+    }
+    else{
+        $sql = "SELECT * FROM entries WHERE late = 'true' AND DATE(date_created) = DATE('$date')";
     
 
-    $sql = "SELECT COUNT(`id`) as total FROM entries WHERE late = 'true' AND DATE(date_created) = DATE('$date')";
+    }
+    
+
     $db->sql($sql);
     $res = $db->getResult();
-    foreach ($res as $row)
-        $total = $row['total'];
+    $num = $db->numRows($res);
+    $total = $num;
 
-    $sql = "SELECT *,entries.id AS id,entries.attendence AS attendence FROM entries,students WHERE students.id = entries.student_id AND entries.late = 'true' "  . $where;
+
+    if($_SESSION['role'] == 'hod'){
+        $branch = $_SESSION['branch'];
+        $sql = "SELECT *,entries.id AS id,entries.attendence AS attendence FROM entries,students WHERE students.id = entries.student_id AND entries.late = 'true' AND students.branch =  '$branch'"  . $where;
+    
+    }
+    else{
+        $sql = "SELECT *,entries.id AS id,entries.attendence AS attendence FROM entries,students WHERE students.id = entries.student_id AND entries.late = 'true' "  . $where;
+    
+
+    }
+
+    
+        
+
     $db->sql($sql);
     $res = $db->getResult();
     $bulkData = array();
